@@ -38,17 +38,18 @@ class ShoppingCart:
         else:
             return sorted_prices[mid_index]
 
+    def apply_discount(self):
+        if self.emp_discount:
+            self.base = self.total
+            self.total = self.total - ((self.total * self.emp_discount) / 100)
+        return self.total
+
     def void_last_item(self):
         if self.item_count > 0:
             last_item = self.items.pop()
-            self.total -= last_item[1]
+            self.base -= last_item[1]
             self.item_count -= 1
-        return self.total
-
-    def apply_discount(self):
-        if self.emp_discount:
-            self.total = self.total - ((self.total * self.emp_discount) / 100)
-        return self.total
+        return self.base
 
     def get_item_count(self):
         return self.item_count
